@@ -1,6 +1,9 @@
 package com.iup.tp.twitup.core;
 
 import java.io.File;
+
+import javax.swing.UnsupportedLookAndFeelException;
+
 import com.iup.tp.twitup.datamodel.Database;
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
@@ -90,7 +93,23 @@ public class Twitup
 	protected void initGui()
 	{
 		TwitupMainView mainView = new TwitupMainView(this.mDatabase, this.mEntityManager);
+		try {
+			mainView.ActivelookAndFeel();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mainView.showGUI();		
+		
 	}
 
 	/**

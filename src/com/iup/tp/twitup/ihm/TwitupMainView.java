@@ -1,6 +1,5 @@
 package com.iup.tp.twitup.ihm;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -11,17 +10,16 @@ import java.util.Random;
 import java.util.UUID;
 
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.iup.tp.twitup.TwitupLauncher;
 import com.iup.tp.twitup.common.PropertiesManager;
 import com.iup.tp.twitup.core.EntityManager;
 import com.iup.tp.twitup.datamodel.IDatabase;
@@ -62,13 +60,6 @@ public class TwitupMainView
 		this.mDatabase = database;
 		this.mEntityManager = entityManager;
 		this.observeur = new IDatabaseObserverImpl();
-		try {
-			lookAndFeel();
-		} catch (ClassNotFoundException | InstantiationException
-				| IllegalAccessException | UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -116,6 +107,7 @@ public class TwitupMainView
 		JMenuBar mainMenuBar = new JMenuBar(); 
 
 		JMenu fichierMenu = new JMenu("Fichier");
+		JMenu utilisateur = new JMenu("Utilisateur");
 		JMenu interrogation = new JMenu("?");
 
 		JMenuItem quitter = new JMenuItem("Quitter");
@@ -152,13 +144,45 @@ public class TwitupMainView
 				choisirDossier();
 			}
 		});
+		
+		JCheckBoxMenuItem activeLookAndFeel = new JCheckBoxMenuItem("activé look&feel");
+		activeLookAndFeel.setToolTipText("Activer ou non le look & feel");
+		activeLookAndFeel.setSelected(true);
+		activeLookAndFeel.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				// TODO: activer ou désactiver le look & feel
+			}
+		});
+		
+		JMenuItem connexion = new JMenuItem("Connexion");
+		connexion.setToolTipText("connexion de l'utilisateur");
+		connexion.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				mainFrame.getContentPane().removeAll();
+				mainFrame.getContentPane().invalidate();
+				ConnexionView cv = new ConnexionView();				
+				mainFrame.getContentPane().add(cv);		
+				mainFrame.getContentPane().revalidate();
+			}
+		});
+		
+		JMenuItem creation = new JMenuItem("Création");
 
 		fichierMenu.add(changerDossier);	
+		fichierMenu.add(activeLookAndFeel);
 		fichierMenu.add(quitter);
 
-		interrogation.add(apropos);
+		utilisateur.add(connexion);
+		utilisateur.add(creation);
+		
+		interrogation.add(apropos);		
 
 		mainMenuBar.add(fichierMenu);
+		mainMenuBar.add(utilisateur);
 		mainMenuBar.add(interrogation);
 
 		mainFrame.setJMenuBar(mainMenuBar);
@@ -292,10 +316,10 @@ public class TwitupMainView
 		return newTwit;
 	}
 
-	public void lookAndFeel() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
+	public void ActivelookAndFeel() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
 
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
+		
 	}
 
 
