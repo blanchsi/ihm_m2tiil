@@ -152,7 +152,7 @@ public class TwitupMainView
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				// TODO: activer ou désactiver le look & feel
+				
 			}
 		});
 		
